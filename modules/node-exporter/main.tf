@@ -1,0 +1,1 @@
+# Node exporter mit defaults als container
