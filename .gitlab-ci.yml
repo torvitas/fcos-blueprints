@@ -1,0 +1,32 @@
+include:
+  - project: "itops/gitlab-ci-templates"
+    ref: "8.0.1"
+    file: "terraform/terraform.gitlab-ci.yml"
+
+terraform:validate:
+  extends: .terraform:validate
+  stage: test
+  variables:
+    VAULT_ADDR: http://docker:8200
+
+terraform:test:
+  extends: .terraform:test
+  services:
+    - docker:stable-dind
+  needs: ["terraform:validate"]
+  variables:
+    VAULT_ADDR: http://docker:8200
+    WORKDIR: tests
+
+
+# # Disable Docker TLS because terraform image
+# # is not able to handle TLS at the moment
+# variables:
+#   DOCKER_HOST: tcp://docker:2375
+#   DOCKER_TLS_CERTDIR: ""
+
+# test:terratest:
+#   extends: .terratest
+#   variables:
+#     WORKDIR: tests
+#     NETBOX_HOST: "http://docker:8001"
