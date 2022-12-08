@@ -8,3 +8,22 @@ variable "ct_version" {
   type        = string
   default     = "1.4.0"
 }
+
+variable "passwd_username" {
+  description = "Name of the default user"
+  type        = string
+  default     = "core"
+}
+
+variable "passwd_ssh_authorized_keys" {
+  description = "List of authorized SSH public keys of the default user"
+  type        = list(string)
+  default     = [""]
+}
+
+// Feature flags
+variable "node_exporter_enabled" {
+  description = "Enable node-exporter container"
+  type        = bool
+  default     = true
+}

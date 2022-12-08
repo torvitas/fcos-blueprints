@@ -1,14 +1,13 @@
-# Node exporter mit defaults als container
 locals {
-  node_exporter_config = {
+  node_exporter_config = var.node_exporter_enabled ? {
     systemd = {
       units = [
         {
           name     = "node-exporter.service"
           enabled  = true
-          contents = file("${path.module}/node-exporter.service")
+          contents = file("${path.module}/systemd/node-exporter.service")
         }
       ]
     }
-  }
+  } : {}
 }

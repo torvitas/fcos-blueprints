@@ -11,16 +11,16 @@ Restart=on-failure
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/%n.ctr-id
 ExecStart=/bin/podman run \
-	--cidfile=%t/%n.ctr-id \
-	--cgroups=no-conmon \
-	--rm \
-	--sdnotify=conmon \
-	--replace \
-	--name node-exporter \
-	--net=host \
-	--pid=host \
-	--volume /:/host:ro,rslave -d docker.io/prom/node-exporter:latest \
-	--path.rootfs=/host
+  --cidfile=%t/%n.ctr-id \
+  --cgroups=no-conmon \
+  --rm \
+  --sdnotify=conmon \
+  --replace \
+  --name node-exporter \
+  --net=host \
+  --pid=host \
+  --volume /:/host:ro,rslave -d docker.io/prom/node-exporter:latest \
+--path.rootfs=/host
 ExecStop=/bin/podman stop --ignore -t 10 --cidfile=%t/%n.ctr-id
 ExecStopPost=/bin/podman rm -f --ignore -t 10 --cidfile=%t/%n.ctr-id
 Type=notify

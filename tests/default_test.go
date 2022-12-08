@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestDefaultConfig(t *testing.T) {
@@ -15,4 +16,8 @@ func TestDefaultConfig(t *testing.T) {
 
 	// Apply terraform
 	terraform.InitAndApply(t, terraformOptions)
+
+	// Pull rendered config to validate it's content
+	output := terraform.Output(t, terraformOptions, "rendered")
+	assert.NotNil(t, output)
 }

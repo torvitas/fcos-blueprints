@@ -2,7 +2,10 @@ module tests
 
 go 1.19
 
-require github.com/gruntwork-io/terratest v0.41.4
+require (
+	github.com/gruntwork-io/terratest v0.41.4
+	github.com/stretchr/testify v1.7.0
+)
 
 require (
 	cloud.google.com/go v0.83.0 // indirect
@@ -33,7 +36,6 @@ require (
 	github.com/mitchellh/go-testing-interface v1.0.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tmccombs/hcl2json v0.3.3 // indirect
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	github.com/zclconf/go-cty v1.9.1 // indirect
