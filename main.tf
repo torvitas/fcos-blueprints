@@ -5,7 +5,6 @@ locals {
   }
 }
 
-
 data "ct_config" "this" {
   content      = yamlencode(local.base_config)
   strict       = true
