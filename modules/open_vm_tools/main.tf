@@ -3,9 +3,9 @@ locals {
     systemd = {
       units = [
         {
-          name     = "node-exporter.service"
+          name     = "open-vm-tools.service"
           enabled  = true
-          contents = file("${path.module}/node-exporter.service")
+          contents = file("${path.module}/open-vm-tools.service")
         }
       ]
     }

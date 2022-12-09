@@ -27,3 +27,9 @@ variable "node_exporter_enabled" {
   type        = bool
   default     = true
 }
+
+variable "open_vm_tools_enabled" {
+  description = "Enable VMware open-vm-tools to integrate with vSphere"
+  type        = bool
+  default     = false
+}
