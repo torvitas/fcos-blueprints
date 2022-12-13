@@ -5,6 +5,7 @@ import (
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDefaultConfig(t *testing.T) {
@@ -19,7 +20,10 @@ func TestDefaultConfig(t *testing.T) {
 
 	// Pull rendered config to validate it's content
 	output := terraform.Output(t, terraformOptions, "rendered")
-	assert.NotNil(t, output)
+	require.NotNil(t, output)
+
+	assert.NotContains(t, output, "open-vm-tools", "open-vm-tools should not be enabled")
+	assert.Contains(t, output, "certificateAuthorities", "Breuninger CA should be configured")
 }
 
 func TestAllFeaturesEnabledConfig(t *testing.T) {
@@ -37,5 +41,7 @@ func TestAllFeaturesEnabledConfig(t *testing.T) {
 
 	// Pull rendered config to validate it's content
 	output := terraform.Output(t, terraformOptions, "rendered")
-	assert.NotNil(t, output)
+	require.NotNil(t, output)
+
+	assert.Contains(t, output, "open-vm-tools", "open-vm-tools should be enabled")
 }

@@ -25,7 +25,7 @@ resource "libvirt_volume" "this" {
 
 module "ignition" {
   source                     = "../../"
-  passwd_ssh_authorized_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXpQIMBqq8WMT+xeG5W2QvQfoIbxQaZ76oU3bPn8Huc"]
+  passwd_ssh_authorized_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXpQIMBqq8WMT+xeG5W2QvQfoIbxQaZ76oU3bPn8Huc "]
 
 }
 
@@ -53,4 +53,11 @@ resource "libvirt_domain" "this" {
   lifecycle {
     replace_triggered_by = [libvirt_ignition.ignition]
   }
+  # Eanble for debug
+  # console {
+  #   type        = "file"
+  #   target_port = "0"
+  #   target_type = "serial"
+  #   source_path = "/tmp/kvm.log"
+  # }
 }

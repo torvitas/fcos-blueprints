@@ -11,6 +11,19 @@ locals {
         }
       ]
     }
+    storage = {}
+    ignition = {
+      security = {
+        tls = {
+          certificate_authorities = [
+            {
+              inline = file("${path.module}/files/eb_root_ca.crt.pem")
+            }
+          ]
+        }
+      }
+    }
+
   }
 
   # Merge all parts into one big config
