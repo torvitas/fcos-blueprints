@@ -25,6 +25,6 @@ variable "open_vm_tools_enabled" {
 
 variable "butane" {
   description = "Custom butane configuration"
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
