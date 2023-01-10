@@ -1,8 +1,8 @@
 locals {
   # baseline config
-  base_config = {
-    variant = var.ct_variant
-    version = var.ct_version
+  butane = {
+    variant = "fcos"
+    version = "1.4.0"
     passwd = {
       users = [
         {
@@ -23,15 +23,7 @@ locals {
         }
       }
     }
-
   }
-
-  # Merge all parts into one big config
-  merged = merge(
-    local.base_config,
-    var.node_exporter_enabled ? module.node_exporter[0].config : {},
-    var.open_vm_tools_enabled ? module.open_vm_tools[0].config : {}
-  )
 }
 
 module "node_exporter" {
@@ -44,7 +36,12 @@ module "open_vm_tools" {
 }
 
 data "ct_config" "this" {
-  content      = yamlencode(local.merged)
+  content      = yamlencode(local.butane)
   strict       = true
   pretty_print = false
+  snippets = concat(
+    var.butane != null ? [var.butane] : [],
+    [for node_exporter in module.node_exporter : node_exporter.butane],
+    [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane]
+  )
 }

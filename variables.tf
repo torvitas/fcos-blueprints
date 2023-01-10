@@ -1,14 +1,3 @@
-variable "ct_variant" {
-  description = "Variant used in CT config YAML"
-  type        = string
-  default     = "fcos"
-}
-variable "ct_version" {
-  description = "Version used in CT config YAML"
-  type        = string
-  default     = "1.4.0"
-}
-
 variable "passwd_username" {
   description = "Name of the default user"
   type        = string
@@ -32,4 +21,10 @@ variable "open_vm_tools_enabled" {
   description = "Enable VMware open-vm-tools to integrate with vSphere"
   type        = bool
   default     = false
+}
+
+variable "butane" {
+  description = "Custom butane configuration"
+  type = string
+  default = null
 }
