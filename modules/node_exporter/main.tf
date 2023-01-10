@@ -7,7 +7,7 @@ locals {
         {
           name     = "node-exporter.service"
           enabled  = true
-          contents = file("${path.module}/node-exporter.service")
+          contents = file(format("%s/node-exporter.service", path.module))
         }
       ]
     }

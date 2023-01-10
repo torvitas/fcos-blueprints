@@ -17,7 +17,7 @@ locals {
         tls = {
           certificate_authorities = [
             {
-              inline = file("${path.module}/files/eb_root_ca.crt.pem")
+              inline = file(format("%s/files/eb_root_ca.crt.pem", path.module))
             }
           ]
         }

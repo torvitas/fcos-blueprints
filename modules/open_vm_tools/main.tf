@@ -7,7 +7,7 @@ locals {
         {
           name     = "open-vm-tools.service"
           enabled  = true
-          contents = file("${path.module}/open-vm-tools.service")
+          contents = file(format("%s/open-vm-tools.service", path.module))
         }
       ]
     }
