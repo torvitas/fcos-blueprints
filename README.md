@@ -2,6 +2,6 @@
 
 Provide a baseline configuration for Ignition/Butane based workloads.
 
-## References:
+## References
 
-* https://coreos.github.io/butane/config-fcos-v1_4/
+* <https://coreos.github.io/butane/config-fcos-v1_4/>

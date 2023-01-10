@@ -1,5 +1,7 @@
 locals {
-  config = {
+  butane = {
+    variant = "fcos"
+    version = "1.4.0"
     systemd = {
       units = [
         {
@@ -12,6 +14,6 @@ locals {
   }
 }
 
-output "config" {
-  value = local.config
+output "butane" {
+  value = yamlencode(local.butane)
 }
