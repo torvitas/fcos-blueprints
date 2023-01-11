@@ -44,5 +44,5 @@ func TestAllFeaturesEnabledConfig(t *testing.T) {
 	require.NotNil(t, output)
 
 	assert.Contains(t, output, "open-vm-tools", "open-vm-tools should be enabled")
-	assert.Contains(t, output, "node-exporter", "open-vm-tools should be enabled")
+	assert.Contains(t, output, "node-exporter", "node-exporter should be enabled")
 }
