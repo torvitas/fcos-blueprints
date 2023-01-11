@@ -28,3 +28,18 @@ variable "butane" {
   type        = string
   default     = null
 }
+
+variable "podman" {
+  type = object({
+    device = string
+  })
+  default = null
+}
+
+variable "pods" {
+  type = list(object({
+    name     = string
+    manifest = string
+  }))
+  default = []
+}
