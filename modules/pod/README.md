@@ -18,8 +18,8 @@ Currently, the following things are implemented:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_manifest"></a> [manifest](#input\_manifest) | n/a | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
+| <a name="input_manifest"></a> [manifest](#input\_manifest) | The pod manifest. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name of the pod to be deployed. | `string` | n/a | yes |
 
 ## Outputs
 

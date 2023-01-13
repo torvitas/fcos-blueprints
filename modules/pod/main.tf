@@ -15,11 +15,13 @@
  * - enable pod systemd service via podman-kube service template
 */
 variable "name" {
-  type = string
+  description = "Name of the pod to be deployed."
+  type        = string
 }
 
 variable "manifest" {
-  type = string
+  description = "The pod manifest."
+  type        = string
 }
 
 locals {
