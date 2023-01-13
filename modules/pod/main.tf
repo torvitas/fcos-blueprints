@@ -1,3 +1,19 @@
+/*
+ * # Pod Ignition Module
+ *
+ * [TOC]
+ *
+ * ## Description
+ *
+ * This module returns a butane config that deploys and enables a pod as a systemd service.
+ *
+ * ## Features
+ *
+ * Currently, the following things are implemented:
+ *
+ * - deploy pod manifest to /usr/local/etc/kube/<pod-name>.yml
+ * - enable pod systemd service via podman-kube service template
+*/
 variable "name" {
   type = string
 }

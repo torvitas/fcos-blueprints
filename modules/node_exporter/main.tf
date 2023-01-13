@@ -1,3 +1,12 @@
+/*
+ * # Node Exporter Ignition Module
+ *
+ * [TOC]
+ *
+ * ## Description
+ *
+ * This module returns a butane config that deploys the Node Exporter for for Prometheus using the pod-module.
+*/
 module "pod" {
   source   = "../pod"
   name     = "node-exporter"

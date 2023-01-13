@@ -1,5 +1,22 @@
+/*
+ * # Podman Ignition Module
+ *
+ * [TOC]
+ *
+ * ## Description
+ *
+ * This module returns a butane config that configure podman.
+ *
+ * ## Features
+ *
+ * Currently, the following things are implemented:
+ *
+ * - mount a block device to /var/lib/containers
+ * - add a systemd drop-in for the podman-kube service template, which is provided by the podman package by default
+*/
 variable "device" {
-  type = string
+  type        = string
+  description = ""
 }
 
 locals {
