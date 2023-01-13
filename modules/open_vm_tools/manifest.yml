@@ -1,0 +1,108 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.TTY/open-vm-tools: "false"
+    io.podman.annotations.autoremove/open-vm-tools: "TRUE"
+    io.podman.annotations.init/open-vm-tools: "FALSE"
+    io.podman.annotations.privileged/open-vm-tools: "TRUE"
+    io.podman.annotations.publish-all/open-vm-tools: "FALSE"
+  labels:
+    app: open-vm-tools-pod
+  name: open-vm-tools-pod
+spec:
+  automountServiceAccountToken: false
+  containers:
+  - image: registry.access.redhat.com/rhel7/open-vm-tools:latest
+    name: open-vm-tools
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /sys/fs/cgroup
+      name: sys-fs-cgroup-host-0
+    - mountPath: /etc/nsswitch.conf
+      name: etc-nsswitch.conf-host-1
+    - mountPath: /etc/passwd
+      name: etc-passwd-host-2
+    - mountPath: /tmp
+      name: tmp-host-3
+    - mountPath: /sysroot
+      name: sysroot-host-4
+    - mountPath: /etc/shadow
+      name: etc-shadow-host-5
+    - mountPath: /etc/hosts
+      name: etc-hosts-host-6
+    - mountPath: /var/lib/sss/pipes/
+      name: var-lib-sss-pipes-host-7
+    - mountPath: /var/log
+      name: var-log-host-8
+    - mountPath: /etc/sysconfig
+      name: etc-sysconfig-host-9
+    - mountPath: /hostproc/
+      name: proc-host-10
+    - mountPath: /run/systemd
+      name: run-systemd-host-11
+    - mountPath: /etc/resolv.conf
+      name: etc-resolv.conf-host-12
+    - mountPath: /etc/adjtime
+      name: etc-adjtime-host-13
+  enableServiceLinks: false
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /sys/fs/cgroup
+      type: Directory
+    name: sys-fs-cgroup-host-0
+  - hostPath:
+      path: /etc/nsswitch.conf
+      type: File
+    name: etc-nsswitch.conf-host-1
+  - hostPath:
+      path: /etc/passwd
+      type: File
+    name: etc-passwd-host-2
+  - hostPath:
+      path: /tmp
+      type: Directory
+    name: tmp-host-3
+  - hostPath:
+      path: /sysroot
+      type: Directory
+    name: sysroot-host-4
+  - hostPath:
+      path: /etc/shadow
+      type: File
+    name: etc-shadow-host-5
+  - hostPath:
+      path: /etc/hosts
+      type: File
+    name: etc-hosts-host-6
+  - hostPath:
+      path: /var/lib/sss/pipes
+      type: Directory
+    name: var-lib-sss-pipes-host-7
+  - hostPath:
+      path: /var/log
+      type: Directory
+    name: var-log-host-8
+  - hostPath:
+      path: /etc/sysconfig
+      type: Directory
+    name: etc-sysconfig-host-9
+  - hostPath:
+      path: /proc
+      type: Directory
+    name: proc-host-10
+  - hostPath:
+      path: /run/systemd
+      type: Directory
+    name: run-systemd-host-11
+  - hostPath:
+      path: /etc/resolv.conf
+      type: File
+    name: etc-resolv.conf-host-12
+  - hostPath:
+      path: /etc/adjtime
+      type: File
+    name: etc-adjtime-host-13
