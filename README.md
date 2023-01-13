@@ -36,3 +36,4 @@ Provide a baseline configuration for Ignition/Butane based workloads.
  * [pod](modules/pod)
  * [node_exporter](modules/node_exporter)
  * [open_vm_tools](modules/open_vm_tools)
+ * [authorized_keys](modules/authorized_keys)

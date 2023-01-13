@@ -18,6 +18,8 @@ repos:
         args: [./modules/node_exporter]
       - id: terraform-docs-system
         args: [./modules/open_vm_tools]
+      - id: terraform-docs-system
+        args: [./modules/authorized_keys]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
