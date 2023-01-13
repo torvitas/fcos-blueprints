@@ -38,8 +38,8 @@ locals {
         {
           name = "podman-kube@.service"
           dropins = [{
-            name     = "10-wait-filesystem.conf"
-            contents = file(format("%s/10-wait-filesystem.conf", path.module))
+            name     = "10-require-filesystem.conf"
+            contents = file(format("%s/10-require-filesystem.conf", path.module))
           }]
         }
       ]
