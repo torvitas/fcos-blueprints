@@ -1,19 +1,9 @@
-locals {
-  butane = {
-    variant = "fcos"
-    version = "1.4.0"
-    systemd = {
-      units = [
-        {
-          name     = "node-exporter.service"
-          enabled  = true
-          contents = file(format("%s/node-exporter.service", path.module))
-        }
-      ]
-    }
-  }
+module "pod" {
+  source   = "../pod"
+  name     = "node-exporter"
+  manifest = file(format("%s/manifest.yml", path.module))
 }
 
 output "butane" {
-  value = yamlencode(local.butane)
+  value = module.pod.butane
 }
