@@ -30,3 +30,9 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 | <a name="output_config"></a> [config](#output\_config) | War CT config object |
 | <a name="output_rendered"></a> [rendered](#output\_rendered) | Rendered ignition config |
 <!-- END_TF_DOCS -->
+
+## Index of Submodules
+ * [podman](modules/podman)
+ * [pod](modules/pod)
+ * [node_exporter](modules/node_exporter)
+ * [open_vm_tools](modules/open_vm_tools)
