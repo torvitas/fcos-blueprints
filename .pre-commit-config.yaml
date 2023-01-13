@@ -9,6 +9,8 @@ repos:
     rev: "v0.16.0"
     hooks:
       - id: terraform-docs-system
+        args: [./]
+      - id: terraform-docs-system
         args: [./modules/podman]
       - id: terraform-docs-system
         args: [./modules/pod]
