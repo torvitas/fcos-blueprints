@@ -8,13 +8,15 @@ variable "manifest" {
 
 locals {
   pod_path = format("/usr/local/etc/kube/%s.yml", var.name)
+  # First replace dashes with systemd escape sequence, then replace slashes with dashes
+  systemd_path_escaped = replace(replace(local.pod_path, "-", "\\x2d"), "/", "-")
   butane = {
     variant = "fcos"
     version = "1.4.0"
     systemd = {
       units = [
         {
-          name    = format("podman-kube@%s.service", replace(local.pod_path, "/", "-"))
+          name    = format("podman-kube@%s.service", local.systemd_path_escaped)
           enabled = true
         }
       ]
