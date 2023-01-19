@@ -34,16 +34,16 @@ func Test(t *testing.T) {
 		SshUserName: "core",
 	}
 
-	// It can take a minute or so for the Instance to boot up, so retry a few times
+	// Verify that we can SSH to the instance and run commands
+	// It can take about a minute for the instance to boot up, so retry a few times
 	maxRetries := 30
 	timeBetweenRetries := 5 * time.Second
 	description := fmt.Sprintf("SSH to public host %s", instanceIP)
-
-	// Verify that we can SSH to the Instance and run commands
 	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
 		return ssh.CheckSshCommandE(t, host, "true")
 	})
 
+	// Verify all pod services have drop-ins that wait for the corresponding mounts
 	for _, pod := range []struct {
 		name, user string
 	}{
