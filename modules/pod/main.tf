@@ -14,9 +14,25 @@
  * - deploy pod manifest to /usr/local/etc/kube/<pod-name>.yml
  * - enable pod systemd service via podman-kube service template
 */
+variable "user" {
+  type    = string
+  default = "root"
+}
+
+variable "group" {
+  type    = string
+  default = null
+}
+
 variable "name" {
   description = "Name of the pod to be deployed."
   type        = string
+  validation {
+    # systemd will escape special characters in an ugly way, so we prevent them
+    # In particular, "-" will become "\x2d"
+    condition     = can(regex("^[0-9A-Za-z_]+$", var.name))
+    error_message = "The name of the pod must match ^[0-9A-Za-z_]+$"
+  }
 }
 
 variable "manifest" {
@@ -29,34 +45,26 @@ variable "manifest" {
 }
 
 locals {
-  pod_path = format("/usr/local/etc/kube/%s.yml", var.name)
-  # First replace dashes with systemd escape sequence, then replace slashes with dashes
-  systemd_path_escaped = replace(replace(local.pod_path, "-", "\\x2d"), "/", "-")
-  butane = {
-    variant = "fcos"
-    version = "1.4.0"
-    systemd = {
-      units = [
-        {
-          name    = format("podman-kube@%s.service", local.systemd_path_escaped)
-          enabled = true
-        }
-      ]
-    }
-    storage = {
-      files = [
-        {
-          path = local.pod_path
-          mode = parseint("644", 8)
-          contents = {
-            inline = var.manifest
-          }
-        }
-      ]
-    }
-  }
+  is_root = var.user == "root"
+  group   = var.group != null ? var.group : var.user
+}
+
+module "root" {
+  source   = "./modules/root"
+  count    = local.is_root ? 1 : 0
+  name     = var.name
+  manifest = var.manifest
+}
+
+module "user" {
+  source   = "./modules/user"
+  count    = local.is_root ? 0 : 1
+  name     = var.name
+  manifest = var.manifest
+  user     = var.user
+  group    = local.group
 }
 
 output "butane" {
-  value = yamlencode(local.butane)
+  value = local.is_root ? module.root[0].butane : module.user[0].butane
 }
