@@ -29,17 +29,6 @@ variable "butane" {
   default     = null
 }
 
-variable "podman" {
-  description = <<EOT
-    Configuration object for podman module.
-    Currently only the device attribute that accepts a block device path is available.
-  EOT
-  type = object({
-    device = string
-  })
-  default = null
-}
-
 variable "pods" {
   description = "List of configuration objects for pod module."
   type = list(object({

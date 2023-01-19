@@ -11,8 +11,6 @@ repos:
       - id: terraform-docs-system
         args: [./]
       - id: terraform-docs-system
-        args: [./modules/podman]
-      - id: terraform-docs-system
         args: [./modules/pod]
       - id: terraform-docs-system
         args: [./modules/node_exporter]

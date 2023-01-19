@@ -41,12 +41,6 @@ locals {
   }
 }
 
-module "podman" {
-  count  = var.podman != null ? 1 : 0
-  source = "./modules/podman"
-  device = var.podman.device
-}
-
 module "pod" {
   for_each = { for index, pod in var.pods : index => pod }
   source   = "./modules/pod"
@@ -71,7 +65,6 @@ data "ct_config" "this" {
 
   snippets = concat(
     var.butane != null ? [var.butane] : [],
-    [for podman in module.podman : podman.butane],
     [for pod in module.pod : pod.butane],
     [for node_exporter in module.node_exporter : node_exporter.butane],
     [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane]
