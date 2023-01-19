@@ -1,4 +1,6 @@
 terraform.tfstate*
 .terraform
 *.qcow2
+ignition.cfg
+id_test
 *.swp
