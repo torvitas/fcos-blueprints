@@ -33,7 +33,7 @@ locals {
     replace(local.manifest_path, "/", "-")
   )
   service_dropin_path = format("%s/%s.d/10-require-filesystem.conf", local.systemd_path, local.service_name)
-  podman_path         = format("/var/home/%s/.local/share/containers", var.user)
+  podman_path         = format("/var/home/%s/.local/share/containers/storage/volumes", var.user)
   butane = {
     variant = "fcos"
     version = "1.4.0"

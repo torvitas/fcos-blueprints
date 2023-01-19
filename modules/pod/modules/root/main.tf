@@ -20,7 +20,7 @@ locals {
     # Note that special characters are not allowed in the pod module. Underscore is not escaped by systemd.
     replace(local.manifest_path, "/", "-")
   )
-  podman_path = "/var/lib/containers"
+  podman_path = "/var/lib/containers/storage/volumes"
   butane = {
     variant = "fcos"
     version = "1.4.0"

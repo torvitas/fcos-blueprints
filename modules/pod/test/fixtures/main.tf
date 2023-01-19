@@ -40,13 +40,13 @@ locals {
       filesystems = [
         {
           device          = "/dev/disk/by-diskseq/2"
-          path            = "/var/lib/containers"
+          path            = "/var/lib/containers/storage/volumes"
           format          = "xfs"
           with_mount_unit = true
         },
         {
           device          = "/dev/disk/by-diskseq/3"
-          path            = "/var/home"
+          path            = "/var/home/core/.local/share/containers/storage/volumes"
           format          = "xfs"
           with_mount_unit = true
         }

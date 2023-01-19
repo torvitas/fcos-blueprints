@@ -66,10 +66,10 @@ func Test(t *testing.T) {
 	} {
 		var expectedText, command string
 		if pod.user == "root" {
-			expectedText = "RequiresMountsFor=/var/lib/containers"
+			expectedText = "RequiresMountsFor=/var/lib/containers/storage/volumes"
 			command = fmt.Sprintf("systemctl cat podman-kube@-usr-local-etc-kube-%s.yml.service", pod.name)
 		} else {
-			expectedText = fmt.Sprintf("RequiresMountsFor=/var/home/%s/.local/share/containers", pod.user)
+			expectedText = fmt.Sprintf("RequiresMountsFor=/var/home/%s/.local/share/containers/storage/volumes", pod.user)
 			command = fmt.Sprintf(
 				"systemctl --user cat podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service",
 				pod.user,
