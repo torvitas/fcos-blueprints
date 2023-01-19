@@ -9,7 +9,7 @@ export TF_VAR_libvirt_uri = qemu:///system
 export TF_VAR_coreos_image = $(COREOS_IMAGE)
 
 # modules = $(wildcard modules/*)
-modules = modules/podman
+modules = modules/pod
 
 .PHONY: test
 test: bootstrap
@@ -17,7 +17,7 @@ test: bootstrap
 
 .PHONY: $(modules)
 $(modules):
-	cd $@/test && go clean -testcache && gotestsum .
+	cd $@/test && go clean -testcache && $(GOTEST)
 
 .PHONY: bootstrap
 bootstrap: test/bootstrap/$(COREOS_IMAGE)
