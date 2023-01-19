@@ -84,41 +84,46 @@ func Test(t *testing.T) {
 		})
 	}
 
-	//	t.Run(fmt.Sprintf("test_dropin_%s", pod.name), func(t *testing.T) {
-	//		expectedText := "RequiresMountsFor=/var/home/core/.local/share/containers"
-	//		command := "systemctl --user cat podman-kube@-var-home-core-.local-etc-kube-nginx_0.yml.service"
-	//		actualText, _ := ssh.CheckSshCommandE(t, host, command)
-	//
-	//		assert.Contains(t, actualText, expectedText,
-	//			"The systemctl cat return should contain RequiresMountsFor=/var/home/core/.local/share/containers")
-	//	})
-	//
-	// t.Run("test_container_persistence", func(t *testing.T) {
-	// expectedText := "I can has persistence plx"
-	// command := fmt.Sprintf("podman run --rm -v foo:/opt alpine:3.16 sh -c \"echo %s > /opt/my_test_file\"", expectedText)
-	// ssh.CheckSshCommandE(t, host, command)
-	// terraform.RunTerraformCommand(
-	// t,
-	// terraformOptions,
-	// "taint",
-	// "module.libvirt_test_vm.libvirt_domain.this",
-	// )
-	// terraform.RunTerraformCommand(
-	// t,
-	// terraformOptions,
-	// "taint",
-	// "module.libvirt_test_vm.libvirt_volume.root",
-	// )
-	// terraform.Apply(t, terraformOptions)
-	// instanceIP := terraform.Output(t, terraformOptions, "ip_address")
-	// host.Hostname = instanceIP
-	// retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
-	// return ssh.CheckSshCommandE(t, host, "true")
-	// })
-	// command = "podman run --rm -v foo:/opt alpine:3.16 cat /opt/my_test_file"
-	// actualText, _ := ssh.CheckSshCommandE(t, host, command)
-	//
-	// assert.Contains(t, actualText, expectedText,
-	// fmt.Sprintf("The command return should contain %s.", expectedText))
-	// })
+	t.Run("test_container_persistence", func(t *testing.T) {
+
+		// Run pod and echo text to file in volume
+		expectedText := "I can has persistence plx"
+		command := fmt.Sprintf(
+			"podman run --rm -v persistence-test:/opt docker.nexus.breuni.io/library/alpine:3.16 /bin/sh -c \"echo %s > /opt/my_test_file\"",
+			expectedText,
+		)
+		_, err := ssh.CheckSshCommandE(t, host, command)
+		assert.Nil(t, err, "The echo should not error.")
+
+		// Make sure the filesystems are actually fully persisted before destroy
+		ssh.CheckSshCommandE(t, host, "sync")
+
+		// Taint virtual machine and root disk before running apply to recreate virtual machine
+		terraform.RunTerraformCommand(
+			t,
+			terraformOptions,
+			"taint",
+			"module.libvirt_test_vm.libvirt_domain.this",
+		)
+		terraform.RunTerraformCommand(
+			t,
+			terraformOptions,
+			"taint",
+			"module.libvirt_test_vm.libvirt_volume.root",
+		)
+		terraform.Apply(t, terraformOptions)
+
+		// Update ssh arguments and wait for machine to come up again
+		instanceIP := terraform.Output(t, terraformOptions, "ip_address")
+		host.Hostname = instanceIP
+		retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
+			return ssh.CheckSshCommandE(t, host, "true")
+		})
+
+		// Assert persistence by getting text from file in volume
+		command = "podman run --rm -v persistence-test:/opt docker.nexus.breuni.io/library/alpine:3.16 cat /opt/my_test_file"
+		actualText, _ := ssh.CheckSshCommandE(t, host, command)
+		assert.Contains(t, actualText, expectedText,
+			fmt.Sprintf("The command return should contain %s.", expectedText))
+	})
 }
