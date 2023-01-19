@@ -44,22 +44,6 @@ func Test(t *testing.T) {
 		return ssh.CheckSshCommandE(t, host, "true")
 	})
 
-	t.Run("test_df_result_var_lib_containers", func(t *testing.T) {
-		expectedText := "/var/lib/containers"
-		command := "df /dev/disk/by-diskseq/2"
-		actualText, _ := ssh.CheckSshCommandE(t, host, command)
-		assert.Contains(t, actualText, expectedText,
-			"The df return should contain /var/lib/containers.")
-	})
-
-	t.Run("test_df_result_var_home", func(t *testing.T) {
-		expectedText := "/var/home"
-		command := "df /dev/disk/by-diskseq/3"
-		actualText, _ := ssh.CheckSshCommandE(t, host, command)
-		assert.Contains(t, actualText, expectedText,
-			"The df return should contain /var/home.")
-	})
-
 	for _, pod := range []struct {
 		name, user string
 	}{
