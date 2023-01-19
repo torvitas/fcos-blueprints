@@ -1,7 +1,6 @@
 # RSA key of size 4096 bits
 resource "tls_private_key" "this" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm = "ED25519"
 }
 
 module "authorized_keys" {
@@ -53,6 +52,17 @@ resource "libvirt_domain" "this" {
     wait_for_lease = true
   }
   coreos_ignition = libvirt_ignition.this.id
+}
+
+resource "local_file" "private_key_openssh" {
+  content         = tls_private_key.this.private_key_openssh
+  filename        = format("%s/id_test", path.module)
+  file_permission = "0600"
+}
+
+resource "local_file" "ignition" {
+  content  = data.ct_config.this.rendered
+  filename = format("%s/ignition.cfg", path.module)
 }
 
 output "private_key_openssh" {
