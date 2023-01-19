@@ -70,7 +70,11 @@ func Test(t *testing.T) {
 			command = fmt.Sprintf("systemctl cat podman-kube@-usr-local-etc-kube-%s.yml.service", pod.name)
 		} else {
 			expectedText = fmt.Sprintf("RequiresMountsFor=/var/home/%s/.local/share/containers", pod.user)
-			command = fmt.Sprintf("systemctl --user cat podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service", pod.user, pod.name)
+			command = fmt.Sprintf(
+				"systemctl --user cat podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service",
+				pod.user,
+				pod.name,
+			)
 		}
 		t.Run(fmt.Sprintf("test_dropins_%s_%s", pod.user, pod.name), func(t *testing.T) {
 			actualText, _ := ssh.CheckSshCommandE(t, host, command)
