@@ -23,10 +23,6 @@ func Test(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 	// defer terraform.Destroy(t, terraformOptions)
 
-	testSSHCommand(t, terraformOptions)
-}
-
-func testSSHCommand(t *testing.T, terraformOptions *terraform.Options) {
 	instanceIP := terraform.Output(t, terraformOptions, "ip_address")
 	sshKeyPair := &ssh.KeyPair{
 		PrivateKey: terraform.Output(t, terraformOptions, "private_key_openssh"),
