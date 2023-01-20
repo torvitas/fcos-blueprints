@@ -2,6 +2,8 @@ package tests
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"strings"
 	"testing"
 	"time"
@@ -55,5 +57,14 @@ func Test(t *testing.T) {
 			return actualText, nil
 		})
 		assert.Nil(t, err, "The service should become active (running).")
+	})
+
+	t.Run("test_service_reachability", func(t *testing.T) {
+		expectedText := "node_memory"
+		response, _ := http.Get(fmt.Sprintf("http://%s:9100/metrics", instanceIP))
+		defer response.Body.Close()
+		responseBody, _ := ioutil.ReadAll(response.Body)
+		actualText := string(responseBody)
+		assert.Contains(t, actualText, expectedText, fmt.Sprintf("The response should contain the metric %s", expectedText))
 	})
 }
