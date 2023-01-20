@@ -8,13 +8,14 @@ import (
 	"github.com/gruntwork-io/terratest/modules/retry"
 	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test(t *testing.T) {
-
+	terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../../", "modules/pod/test/fixtures")
 	terraformOptions := &terraform.Options{
-		TerraformDir: "fixtures",
+		TerraformDir: terraformDir,
 		Vars:         map[string]interface{}{},
 	}
 
