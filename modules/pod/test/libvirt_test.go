@@ -49,19 +49,19 @@ func Test(t *testing.T) {
 	}{
 		{
 			user: "root",
-			name: "nginx_0",
+			name: "busybox_0",
 		},
 		{
 			user: "root",
-			name: "nginx_1",
+			name: "busybox_1",
 		},
 		{
 			user: "core",
-			name: "nginx_0",
+			name: "busybox_0",
 		},
 		{
 			user: "core",
-			name: "nginx_1",
+			name: "busybox_1",
 		},
 	} {
 		var expectedText, command string

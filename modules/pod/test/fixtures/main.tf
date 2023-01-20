@@ -56,28 +56,28 @@ locals {
 }
 
 module "pod_root_0" {
-  source   = "./../../"
-  name     = "nginx_0"
-  manifest = file(format("%s/nginx-root-0.yml", path.module))
+  source   = "./../.."
+  name     = "busybox_0"
+  manifest = file(format("%s/busybox-root-0.yml", path.module))
 }
 
 module "pod_root_1" {
-  source   = "./../../"
-  name     = "nginx_1"
-  manifest = file(format("%s/nginx-root-1.yml", path.module))
+  source   = "./../.."
+  name     = "busybox_1"
+  manifest = file(format("%s/busybox-root-1.yml", path.module))
 }
 
 module "pod_core_0" {
-  source   = "./../../"
-  name     = "nginx_0"
-  manifest = file(format("%s/nginx-core-0.yml", path.module))
+  source   = "./../.."
+  name     = "busybox_0"
+  manifest = file(format("%s/busybox-core-0.yml", path.module))
   user     = "core"
 }
 
 module "pod_core_1" {
-  source   = "./../../"
-  name     = "nginx_1"
-  manifest = file(format("%s/nginx-core-1.yml", path.module))
+  source   = "./../.."
+  name     = "busybox_1"
+  manifest = file(format("%s/busybox-core-1.yml", path.module))
   user     = "core"
 }
 

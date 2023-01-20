@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.TTY/busybox: "false"
+    io.podman.annotations.autoremove/busybox: "TRUE"
+    io.podman.annotations.init/busybox: "FALSE"
+    io.podman.annotations.privileged/busybox: "FALSE"
+    io.podman.annotations.publish-all/busybox: "FALSE"
+  labels:
+    app: busybox-root-0-pod
+  name: busybox-root-0-pod
+spec:
+  automountServiceAccountToken: false
+  containers:
+  - args:
+    - sleep
+    - infinity
+    image: quay.io/quay/busybox:latest
+    name: busybox
