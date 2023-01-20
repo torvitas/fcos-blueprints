@@ -19,8 +19,7 @@ func Test(t *testing.T) {
 	}
 
 	// Apply terraform
-	// terraform.InitAndApplyAndIdempotent(t, terraformOptions)
-	terraform.InitAndApply(t, terraformOptions)
+	terraform.InitAndApplyAndIdempotent(t, terraformOptions)
 	defer terraform.Destroy(t, terraformOptions)
 
 	instanceIP := terraform.Output(t, terraformOptions, "ip_address")
