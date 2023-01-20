@@ -1,6 +1,6 @@
 include:
   - project: "itops/gitlab-ci-templates"
-    ref: "9.3.0"
+    ref: "9.4.0"
     file: "terraform/terraform.gitlab-ci.yml"
 
 terraform:validate:
