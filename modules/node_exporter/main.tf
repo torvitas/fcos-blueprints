@@ -9,7 +9,7 @@
 */
 module "pod" {
   source   = "../pod"
-  name     = "node-exporter"
+  name     = "node_exporter"
   manifest = file(format("%s/manifest.yml", path.module))
 }
 

@@ -7,23 +7,19 @@ metadata:
   name: node-exporter
 spec:
   containers:
-  - args:
-    - --path.rootfs=/host
-    image: docker.io/prom/node-exporter:v1.5.0
-    name: node-exporter
-    securityContext:
-      capabilities:
-        drop:
-        - CAP_MKNOD
-        - CAP_NET_RAW
-        - CAP_AUDIT_WRITE
-    volumeMounts:
-    - mountPath: /host
-      name: root-host-0
-      readOnly: true
-  hostNetwork: true
+    - image: docker.io/prom/node-exporter:v1.5.0
+      name: node-exporter
+      args:
+        - --path.rootfs=/host
+      volumeMounts:
+        - mountPath: /host
+          name: root-host-0
+          readOnly: true
+      ports:
+        - containerPort: 9100
+          protocol: TCP
   volumes:
-  - hostPath:
-      path: /
-      type: Directory
-    name: root-host-0
+    - hostPath:
+        path: /
+        type: Directory
+      name: root-host-0
