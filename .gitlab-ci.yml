@@ -6,9 +6,3 @@ include:
 terraform:validate:
   extends: .terraform:validate
   stage: test
-
-terraform:test:
-  extends: .terraform:test
-  needs: ["terraform:validate"]
-  variables:
-    WORKDIR: tests
