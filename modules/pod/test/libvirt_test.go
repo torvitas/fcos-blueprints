@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test(t *testing.T) {
+func TestPod(t *testing.T) {
 	terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../../", "modules/pod/test/fixtures")
 	terraformOptions := &terraform.Options{
 		TerraformDir: terraformDir,

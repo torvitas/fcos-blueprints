@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test(t *testing.T) {
+func TestNodeExporter(t *testing.T) {
 	terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../../", "modules/node_exporter/test/fixtures")
 	terraformOptions := &terraform.Options{
 		TerraformDir: terraformDir,

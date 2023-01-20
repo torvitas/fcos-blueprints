@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test(t *testing.T) {
+func TestOpenVmTools(t *testing.T) {
 	terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../../", "modules/open_vm_tools/test/fixtures")
 	terraformOptions := &terraform.Options{
 		TerraformDir: terraformDir,
