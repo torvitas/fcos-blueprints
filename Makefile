@@ -20,9 +20,11 @@ $(modules):
 	cd $@/test && go clean -testcache && $(GOTEST)
 
 .PHONY: bootstrap
-bootstrap: test/bootstrap/$(COREOS_IMAGE)
-	cd test/bootstrap && terraform init
+bootstrap: test/bootstrap/$(COREOS_IMAGE) test/bootstrap/.terraform
 	cd test/bootstrap && terraform apply -auto-approve
+
+test/bootstrap/.terraform:
+	cd test/bootstrap && terraform init
 
 test/bootstrap/$(COREOS_IMAGE):
 	curl $(COREOS_URL) | xzcat > test/bootstrap/$(COREOS_IMAGE)
