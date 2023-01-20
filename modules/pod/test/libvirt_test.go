@@ -38,10 +38,8 @@ func Test(t *testing.T) {
 
 	// Verify that we can SSH to the instance and run commands
 	// It can take about a minute for the instance to boot up, so retry a few times
-	maxRetries := 30
-	timeBetweenRetries := 5 * time.Second
 	description := fmt.Sprintf("SSH to public host %s", instanceIP)
-	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
+	retry.DoWithRetry(t, description, 30, 5*time.Second, func() (string, error) {
 		return ssh.CheckSshCommandE(t, host, "true")
 	})
 
@@ -118,7 +116,7 @@ func Test(t *testing.T) {
 		// Update ssh arguments and wait for machine to come up again
 		instanceIP := terraform.Output(t, terraformOptions, "ip_address")
 		host.Hostname = instanceIP
-		retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
+		retry.DoWithRetry(t, description, 30, 5*time.Second, func() (string, error) {
 			return ssh.CheckSshCommandE(t, host, "true")
 		})
 
