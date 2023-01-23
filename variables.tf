@@ -1,13 +1,7 @@
-variable "passwd_username" {
-  description = "Name of the default user"
-  type        = string
-  default     = "core"
-}
-
-variable "passwd_ssh_authorized_keys" {
-  description = "List of authorized SSH public keys of the default user"
+variable "authorized_keys" {
+  description = "List of authorized SSH public keys for the default user"
   type        = list(string)
-  default     = [""]
+  default     = null
 }
 
 // Feature flags

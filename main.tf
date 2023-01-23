@@ -14,31 +14,16 @@
  */
 
 locals {
-  # baseline config
   butane = {
     variant = "fcos"
     version = "1.4.0"
-    passwd = {
-      users = [
-        {
-          name                = var.passwd_username
-          ssh_authorized_keys = var.passwd_ssh_authorized_keys
-        }
-      ]
-    }
-    storage = {}
-    ignition = {
-      security = {
-        tls = {
-          certificate_authorities = [
-            {
-              inline = file(format("%s/files/eb_root_ca.crt.pem", path.module))
-            }
-          ]
-        }
-      }
-    }
   }
+}
+
+module "authorized_keys" {
+  count           = var.authorized_keys != null ? 1 : 0
+  source          = "./modules/authorized_keys"
+  authorized_keys = var.authorized_keys
 }
 
 module "pod" {
@@ -67,6 +52,7 @@ data "ct_config" "this" {
 
   snippets = concat(
     var.butane != null ? [var.butane] : [],
+    [for authorized_keys in module.authorized_keys : authorized_keys.butane],
     [for pod in module.pod : pod.butane],
     [for node_exporter in module.node_exporter : node_exporter.butane],
     [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane]
