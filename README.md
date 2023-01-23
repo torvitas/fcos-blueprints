@@ -20,7 +20,7 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 | <a name="input_open_vm_tools_enabled"></a> [open\_vm\_tools\_enabled](#input\_open\_vm\_tools\_enabled) | Enable VMware open-vm-tools to integrate with vSphere | `bool` | `false` | no |
 | <a name="input_passwd_ssh_authorized_keys"></a> [passwd\_ssh\_authorized\_keys](#input\_passwd\_ssh\_authorized\_keys) | List of authorized SSH public keys of the default user | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_passwd_username"></a> [passwd\_username](#input\_passwd\_username) | Name of the default user | `string` | `"core"` | no |
-| <a name="input_pods"></a> [pods](#input\_pods) | List of configuration objects for pod module. | <pre>list(object({<br>    name     = string<br>    manifest = string<br>  }))</pre> | `[]` | no |
+| <a name="input_pods"></a> [pods](#input\_pods) | List of configuration objects for pod module. | <pre>list(object({<br>    name     = string<br>    manifest = string<br>    user     = string<br>    group    = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

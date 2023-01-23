@@ -46,6 +46,8 @@ module "pod" {
   source   = "./modules/pod"
   name     = each.value.name
   manifest = each.value.manifest
+  user     = each.value.user
+  group    = each.value.group
 }
 
 module "node_exporter" {

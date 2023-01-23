@@ -34,6 +34,8 @@ variable "pods" {
   type = list(object({
     name     = string
     manifest = string
+    user     = string
+    group    = string
   }))
   default = []
 }
