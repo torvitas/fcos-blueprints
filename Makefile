@@ -14,7 +14,7 @@ modules = $(wildcard modules/*)
 
 .PHONY: test
 test: bootstrap
-	$(MAKE) -j5 $(modules)
+	$(MAKE) --jobs=5 $(modules)
 
 .PHONY: $(modules)
 $(modules):
