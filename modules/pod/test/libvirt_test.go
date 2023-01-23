@@ -89,7 +89,7 @@ func TestPod(t *testing.T) {
 		// Run pod and echo text to file in volume
 		expectedText := "I can has persistence plx"
 		command := fmt.Sprintf(
-			"podman run --rm -v persistence-test:/opt docker.nexus.breuni.io/library/alpine:3.16 /bin/sh -c \"echo %s > /opt/my_test_file\"",
+			"podman run --rm -v persistence-test:/opt docker.nexus.breuni.io/library/alpine:3.16 /bin/sh -c \"echo %s > /opt/my_test_file\"", // editorconfig-checker-disable-line
 			expectedText,
 		)
 		_, err := ssh.CheckSshCommandE(t, host, command)

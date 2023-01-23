@@ -1,7 +1,7 @@
 /**
  * # Terraform Ignition Blueprints
  *
- *  [TOC]
+ * [TOC]
  *
  * ## Description
  *

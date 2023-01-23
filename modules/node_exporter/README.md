@@ -1,3 +1,4 @@
+<!-- editorconfig-checker-disable -->
 <!-- BEGIN_TF_DOCS -->
 # Node Exporter Ignition Module
 
@@ -17,3 +18,4 @@ No inputs.
 |------|-------------|
 | <a name="output_butane"></a> [butane](#output\_butane) | n/a |
 <!-- END_TF_DOCS -->
+<!-- editorconfig-checker-enable -->

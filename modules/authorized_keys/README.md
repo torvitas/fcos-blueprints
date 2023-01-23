@@ -1,7 +1,8 @@
+<!-- editorconfig-checker-disable -->
 <!-- BEGIN_TF_DOCS -->
 # Authorized Keys Ignition Module
 
- [TOC]
+[TOC]
 
 ## Description
 
@@ -19,3 +20,4 @@ Set up authorized\_keys file for default user `core`.
 |------|-------------|
 | <a name="output_butane"></a> [butane](#output\_butane) | n/a |
 <!-- END_TF_DOCS -->
+<!-- editorconfig-checker-enable -->

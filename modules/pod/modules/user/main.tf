@@ -51,10 +51,13 @@ locals {
         }
       ]
       directories = [
-        # We want to make sure that each folder in the path (outside of `/var/home/`) to the manifest is owned by the user.
-        # If we just use the final path, the folders in between are owned by `root:root`.
-        # E. g. if we just make sure `/var/home/$user/.local/etc/kube` exists,
-        # the `.local` folder is owned by `root:root`, not by the user.
+        /**
+         * We want to make sure that each folder in the path (outside of `/var/home/`)
+         * to the manifest is owned by the user.
+         * If we just use the final path, the folders in between are owned by `root:root`.
+         * E. g. if we just make sure `/var/home/$user/.local/etc/kube` exists,
+         * the `.local` folder is owned by `root:root`, not by the user.
+         */
         {
           path = format("/var/home/%s", var.user)
           user = {

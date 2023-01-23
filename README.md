@@ -1,7 +1,10 @@
+<!-- editorconfig-checker-disable -->
+<!-- markdownlint-disable -->
+<!-- textlint-disable -->
 <!-- BEGIN_TF_DOCS -->
 # Terraform Ignition Blueprints
 
- [TOC]
+[TOC]
 
 ## Description
 
@@ -28,6 +31,9 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 | <a name="output_config"></a> [config](#output\_config) | War CT config object |
 | <a name="output_rendered"></a> [rendered](#output\_rendered) | Rendered ignition config |
 <!-- END_TF_DOCS -->
+<!-- editorconfig-checker-enable -->
+<!-- textlint-disable -->
+<!-- markdownlint-disable -->
 
 ## Index of Submodules
  * [podman](modules/podman)

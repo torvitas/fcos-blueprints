@@ -1,7 +1,7 @@
 COREOS_STREAM ?= stable
 COREOS_VERSION ?= 37.20221225.3.0
 COREOS_IMAGE ?= fedora-coreos-$(COREOS_VERSION)-qemu.x86_64.qcow2
-COREOS_URL ?= https://builds.coreos.fedoraproject.org/prod/streams/$(COREOS_STREAM)/builds/$(COREOS_VERSION)/x86_64/$(COREOS_IMAGE).xz
+COREOS_URL ?= https://builds.coreos.fedoraproject.org/prod/streams/$(COREOS_STREAM)/builds/$(COREOS_VERSION)/x86_64/$(COREOS_IMAGE).xz // editorconfig-checker-disable-line
 # Using a hidden file prevents terratest from copying it to temporary folders
 COREOS_IMAGE_FILE ?= .tmp/$(COREOS_IMAGE)
 

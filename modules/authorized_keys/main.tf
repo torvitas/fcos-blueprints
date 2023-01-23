@@ -1,7 +1,7 @@
 /**
  * # Authorized Keys Ignition Module
  *
- *  [TOC]
+ * [TOC]
  *
  * ## Description
  *

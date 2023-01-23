@@ -1,3 +1,4 @@
+<!-- editorconfig-checker-disable -->
 <!-- BEGIN_TF_DOCS -->
 # Pod Ignition Module
 
@@ -29,3 +30,4 @@ Currently, the following things are implemented:
 |------|-------------|
 | <a name="output_butane"></a> [butane](#output\_butane) | n/a |
 <!-- END_TF_DOCS -->
+<!-- editorconfig-checker-enable -->
