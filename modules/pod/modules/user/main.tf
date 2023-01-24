@@ -133,6 +133,10 @@ locals {
               { podman_path = local.podman_path }
             )
           }
+        },
+        {
+          path = format("/var/lib/systemd/linger/%s", var.user)
+          mode = parseint("644", 8)
         }
       ]
     }
