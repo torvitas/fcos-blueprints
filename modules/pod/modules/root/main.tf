@@ -6,10 +6,6 @@ variable "name" {
 variable "manifest" {
   description = "The pod manifest."
   type        = string
-  validation {
-    condition     = can(yamldecode(var.manifest))
-    error_message = "The manifest must be valid yaml."
-  }
 }
 
 locals {
