@@ -1,3 +1,13 @@
+terraform {
+  required_version = "~> 1.0"
+  required_providers {
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.11.0"
+    }
+  }
+}
+
 variable "user" {
   type    = string
   default = "root"
@@ -16,27 +26,71 @@ variable "name" {
 variable "manifest" {
   description = "The pod manifest."
   type        = string
-  validation {
-    condition     = can(yamldecode(var.manifest))
-    error_message = "The manifest must be valid yaml."
-  }
+}
+
+module "default_target_path_parents" {
+  source = "../../../directory_parents"
+  root = local.home_path
+  path = local.default_target_path
+  user = var.user
+  group = var.group
+}
+
+module "manifest_path_parents" {
+  source = "../../../directory_parents"
+  root = local.home_path
+  path = dirname(local.manifest_file)
+  user = var.user
+  group = var.group
+}
+
+module "dropin_path_parents" {
+  source = "../../../directory_parents"
+  root = local.home_path
+  path = dirname(local.service_dropin_file)
+  user = var.user
+  group = var.group
+}
+
+data "ct_config" "directories_parents" {
+  content      = yamlencode({
+    variant = "fcos"
+    version = "1.4.0"
+  })
+  strict       = true
+  pretty_print = true
+  snippets = [
+    module.dropin_path_parents.butane,
+    module.default_target_path_parents.butane,
+    module.manifest_path_parents.butane
+  ]
 }
 
 locals {
-  systemd_path        = format("/var/home/%s/.config/systemd/user", var.user)
+  home_path = format("/var/home/%s", var.user)
+  systemd_path        = format("%s/.config/systemd/user", local.home_path)
   default_target_path = format("%s/default.target.wants", local.systemd_path)
-  manifest_path       = format("/var/home/%s/.local/etc/kube/%s.yml", var.user, var.name)
+  manifest_file       = format("%s/.local/etc/kube/%s.yml", local.home_path, var.name)
   service_name = format(
     "podman-kube@%s.service",
     # Apply systemd's path replace algorithm.
     # Note that special characters are not allowed in the pod module. Underscore is not escaped by systemd.
-    replace(local.manifest_path, "/", "-")
+    replace(local.manifest_file, "/", "-")
   )
-  service_dropin_path = format("%s/%s.d/10-require-filesystem.conf", local.systemd_path, local.service_name)
-  podman_path         = format("/var/home/%s/.local/share/containers/storage/volumes", var.user)
+  service_dropin_file = format("%s/%s.d/10-require-filesystem.conf", local.systemd_path, local.service_name)
+  podman_path         = format("%s/.local/share/containers/storage/volumes", local.home_path)
   butane = {
     variant = "fcos"
     version = "1.4.0"
+    ignition = {
+      config = {
+        merge = [
+          {
+            inline = data.ct_config.directories_parents.rendered
+          }
+        ]
+      }
+    }
     storage = {
       links = [
         {
@@ -50,54 +104,9 @@ locals {
           target = "/usr/lib/systemd/system/podman-kube@.service"
         }
       ]
-      directories = [
-        /**
-         * We want to make sure that each folder in the path (outside of `/var/home/`)
-         * to the manifest is owned by the user.
-         * If we just use the final path, the folders in between are owned by `root:root`.
-         * E. g. if we just make sure `/var/home/$user/.local/etc/kube` exists,
-         * the `.local` folder is owned by `root:root`, not by the user.
-         */
-        {
-          path = format("/var/home/%s", var.user)
-          user = {
-            name = var.user
-          }
-          group = {
-            name = var.group
-          }
-        },
-        {
-          path = format("/var/home/%s/.local", var.user)
-          user = {
-            name = var.user
-          }
-          group = {
-            name = var.group
-          }
-        },
-        {
-          path = format("/var/home/%s/.local/etc", var.user)
-          user = {
-            name = var.user
-          }
-          group = {
-            name = var.group
-          }
-        },
-        {
-          path = format("/var/home/%s/.local/etc/kube", var.user)
-          user = {
-            name = var.user
-          }
-          group = {
-            name = var.group
-          }
-        }
-      ]
       files = [
         {
-          path = local.manifest_path
+          path = local.manifest_file
           user = {
             name = var.user
           }
@@ -110,7 +119,7 @@ locals {
           }
         },
         {
-          path = local.service_dropin_path
+          path = local.service_dropin_file
           user = {
             name = var.user
           }
