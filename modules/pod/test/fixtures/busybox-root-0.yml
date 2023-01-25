@@ -14,8 +14,8 @@ metadata:
 spec:
   automountServiceAccountToken: false
   containers:
-  - args:
-    - sleep
-    - infinity
-    image: quay.io/quay/busybox:latest
-    name: busybox
+    - args:
+        - sleep
+        - infinity
+      image: quay.io/quay/busybox:latest
+      name: busybox
