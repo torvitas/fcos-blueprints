@@ -2,6 +2,7 @@ package tests
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Test Pod Module
 func TestPod(t *testing.T) {
 	terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../../", "modules/pod/test/fixtures")
 	terraformOptions := &terraform.Options{
@@ -64,23 +66,38 @@ func TestPod(t *testing.T) {
 			name: "busybox_1",
 		},
 	} {
-		var expectedText, command string
-		if pod.user == "root" {
-			expectedText = "RequiresMountsFor=/var/lib/containers/storage/volumes"
-			command = fmt.Sprintf("systemctl cat podman-kube@-usr-local-etc-kube-%s.yml.service", pod.name)
-		} else {
-			expectedText = fmt.Sprintf("RequiresMountsFor=/var/home/%s/.local/share/containers/storage/volumes", pod.user)
-			command = fmt.Sprintf(
-				"systemctl --user cat podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service",
-				pod.user,
-				pod.name,
-			)
-		}
 		t.Run(fmt.Sprintf("test_dropins_%s_%s", pod.user, pod.name), func(t *testing.T) {
+			var expectedText, command string
+			if pod.user == "root" {
+				expectedText = "RequiresMountsFor=/var/lib/containers/storage/volumes"
+				command = fmt.Sprintf("systemctl cat podman-kube@-usr-local-etc-kube-%s.yml.service", pod.name)
+			} else {
+				expectedText = fmt.Sprintf("RequiresMountsFor=/var/home/%s/.local/share/containers/storage/volumes", pod.user)
+				command = fmt.Sprintf(
+					"systemctl --user cat podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service",
+					pod.user,
+					pod.name,
+				)
+			}
 			actualText, _ := ssh.CheckSshCommandE(t, host, command)
-
 			assert.Contains(t, actualText, expectedText,
 				fmt.Sprintf("The systemctl cat return should contain %s", expectedText))
+		})
+		t.Run(fmt.Sprintf("test_startup_%s_%s", pod.user, pod.name), func(t *testing.T) {
+			var command string
+			expectedText := "active"
+			if pod.user == "root" {
+				command = fmt.Sprintf("systemctl is-active podman-kube@-usr-local-etc-kube-%s.yml.service", pod.name)
+			} else {
+				command = fmt.Sprintf(
+					"systemctl --user is-active podman-kube@-var-home-%s-.local-etc-kube-%s.yml.service",
+					pod.user,
+					pod.name,
+				)
+			}
+			actualText, _ := ssh.CheckSshCommandE(t, host, command)
+			assert.Equal(t, expectedText, strings.TrimSpace(actualText),
+				fmt.Sprintf("The systemctl status return should equal %s", expectedText))
 		})
 	}
 
