@@ -28,6 +28,7 @@ variable "manifest" {
   type        = string
 }
 
+// Ensure all the parent directories actually exist and belong to the user
 module "default_target_path_parents" {
   source = "../../../directory_parents"
   root = local.home_path
@@ -35,7 +36,13 @@ module "default_target_path_parents" {
   user = var.user
   group = var.group
 }
-
+module "network_online_target_path_parents" {
+  source = "../../../directory_parents"
+  root = local.home_path
+  path = local.network_online_target_path
+  user = var.user
+  group = var.group
+}
 module "manifest_path_parents" {
   source = "../../../directory_parents"
   root = local.home_path
@@ -43,7 +50,6 @@ module "manifest_path_parents" {
   user = var.user
   group = var.group
 }
-
 module "dropin_path_parents" {
   source = "../../../directory_parents"
   root = local.home_path
@@ -51,7 +57,7 @@ module "dropin_path_parents" {
   user = var.user
   group = var.group
 }
-
+// Render butane for parent directories to be able to inject it into the current butane configuration
 data "ct_config" "directories_parents" {
   content      = yamlencode({
     variant = "fcos"
@@ -61,6 +67,7 @@ data "ct_config" "directories_parents" {
   pretty_print = true
   snippets = [
     module.dropin_path_parents.butane,
+    module.network_online_target_path_parents.butane,
     module.default_target_path_parents.butane,
     module.manifest_path_parents.butane
   ]
@@ -70,6 +77,7 @@ locals {
   home_path = format("/var/home/%s", var.user)
   systemd_path        = format("%s/.config/systemd/user", local.home_path)
   default_target_path = format("%s/default.target.wants", local.systemd_path)
+  network_online_target_path = format("%s/network-online.target.wants", local.systemd_path)
   manifest_file       = format("%s/.local/etc/kube/%s.yml", local.home_path, var.name)
   service_name = format(
     "podman-kube@%s.service",
@@ -93,6 +101,7 @@ locals {
     }
     storage = {
       links = [
+        // Enable service by creating link in default target
         {
           path = format("%s/%s", local.default_target_path, local.service_name)
           user = {
@@ -102,6 +111,39 @@ locals {
             name = var.group
           }
           target = "/usr/lib/systemd/system/podman-kube@.service"
+        },
+        // Make network-online target available in user
+        {
+          path = format("%s/network-online.target", local.systemd_path)
+          user = {
+            name = var.user
+          }
+          group = {
+            name = var.group
+          }
+          target = "/usr/lib/systemd/system/network-online.target"
+        },
+        // Make NetworkManager-wait-online service available in user
+        {
+          path = format("%s/NetworkManager-wait-online.service", local.systemd_path)
+          user = {
+            name = var.user
+          }
+          group = {
+            name = var.group
+          }
+          target = "/usr/lib/systemd/system/NetworkManager-wait-online.service"
+        },
+        // Enable NetworkManager-wait-online service in user
+        {
+          path = format("%s/NetworkManager-wait-online.service", local.network_online_target_path)
+          user = {
+            name = var.user
+          }
+          group = {
+            name = var.group
+          }
+          target = format("%s/NetworkManager-wait-online.service", local.systemd_path)
         }
       ]
       files = [
@@ -134,6 +176,7 @@ locals {
             )
           }
         },
+        // We set up lingering for the systemd user level instance so that it gets started directly on boot
         {
           path = format("/var/lib/systemd/linger/%s", var.user)
           mode = parseint("644", 8)
