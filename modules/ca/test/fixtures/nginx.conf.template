@@ -1,0 +1,10 @@
+server {
+    listen              ${LISTEN} ssl;
+    server_name         ${SERVER_NAME};
+    ssl_certificate     ${CERTIFICATE_PATH};
+    ssl_certificate_key ${KEY_PATH};
+    location / {
+        root ${ROOT};
+        index index.html index.htm;
+    }
+}
