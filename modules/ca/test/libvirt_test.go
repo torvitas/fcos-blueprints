@@ -44,7 +44,7 @@ func TestCa(t *testing.T) {
 	})
 
 	t.Run("test_curl_tls", func(t *testing.T) {
-		_, err := retry.DoWithRetryE(t, description, 5, 5*time.Second, func() (string, error) {
+		_, err := retry.DoWithRetryE(t, "Test validity of https response.", 60, 2*time.Second, func() (string, error) {
 			return ssh.CheckSshCommandE(t, host, "curl -f https://localhost:4443")
 		})
 		assert.Nil(t, err, "The nginx should yield a valid response.")
