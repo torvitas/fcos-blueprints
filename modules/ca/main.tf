@@ -18,8 +18,8 @@ terraform {
 }
 
 variable "ca" {
+  description = "The certificate authority in PEM format."
   type        = string
-  description = "The certificate authority to deploy."
 }
 
 data "tls_certificate" "this" {

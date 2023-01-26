@@ -9,13 +9,14 @@ terraform {
 }
 
 variable "user" {
-  type    = string
-  default = "root"
+  description = "The user that should run the pod service."
+  type        = string
+  default     = "root"
 }
 
 variable "group" {
-  type    = string
-  default = null
+  description = "The group that should run the pod service"
+  type        = string
 }
 
 variable "name" {

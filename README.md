@@ -36,8 +36,9 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 <!-- markdownlint-disable -->
 
 ## Index of Submodules
- * [podman](modules/podman)
- * [pod](modules/pod)
+ * [authorized_keys](modules/authorized_keys)
+ * [ca](modules/ca)
+ * [directory_parents](modules/directory_parents)
  * [node_exporter](modules/node_exporter)
  * [open_vm_tools](modules/open_vm_tools)
- * [authorized_keys](modules/authorized_keys)
+ * [pod](modules/pod)

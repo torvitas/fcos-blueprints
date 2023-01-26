@@ -13,6 +13,10 @@ repos:
       - id: terraform-docs-system
         args: [./modules/pod]
       - id: terraform-docs-system
+        args: [./modules/ca]
+      - id: terraform-docs-system
+        args: [./modules/directory_parents]
+      - id: terraform-docs-system
         args: [./modules/node_exporter]
       - id: terraform-docs-system
         args: [./modules/open_vm_tools]

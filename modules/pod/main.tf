@@ -15,13 +15,15 @@
  * - enable pod systemd service via podman-kube service template
 */
 variable "user" {
-  type    = string
-  default = "root"
+  description = "The user that should run the pod service."
+  type        = string
+  default     = "root"
 }
 
 variable "group" {
-  type    = string
-  default = null
+  description = "The group that should run the pod service"
+  type        = string
+  default     = null
 }
 
 variable "name" {
