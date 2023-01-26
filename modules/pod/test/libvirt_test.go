@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
@@ -95,9 +96,18 @@ func TestPod(t *testing.T) {
 					pod.name,
 				)
 			}
-			actualText, _ := ssh.CheckSshCommandE(t, host, command)
-			assert.Equal(t, expectedText, strings.TrimSpace(actualText),
-				fmt.Sprintf("The systemctl status return should equal %s", expectedText))
+			actualText, _ := retry.DoWithRetryE(t, "Test service status", 60, 2*time.Second, func() (string, error) {
+				actualText := strings.TrimSpace(func() string {
+					response, _ := ssh.CheckSshCommandE(t, host, command)
+					return response
+				}())
+				if actualText == expectedText {
+					return actualText, nil
+				}
+				return actualText, errors.New("the pod service is not in active state")
+			})
+			assert.Equal(t, expectedText, actualText,
+				fmt.Sprintf("The systemctl status return should equal %s in time.", expectedText))
 		})
 	}
 
