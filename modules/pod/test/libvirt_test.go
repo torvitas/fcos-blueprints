@@ -84,7 +84,7 @@ func TestPod(t *testing.T) {
 			assert.Contains(t, actualText, expectedText,
 				fmt.Sprintf("The systemctl cat return should contain %s", expectedText))
 		})
-		t.Run(fmt.Sprintf("test_startup_%s_%s", pod.user, pod.name), func(t *testing.T) {
+		t.Run(fmt.Sprintf("test_service_status_%s_%s", pod.user, pod.name), func(t *testing.T) {
 			var command string
 			expectedText := "active"
 			if pod.user == "root" {
