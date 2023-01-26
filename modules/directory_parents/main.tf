@@ -1,7 +1,7 @@
 variable "root" {
   type = string
   validation {
-    condition = !can(regex("/$", trimsuffix(var.root, "/")))
+    condition     = !can(regex("/$", trimsuffix(var.root, "/")))
     error_message = "The root path must not have multiple trailing slashes."
   }
 }
@@ -9,7 +9,7 @@ variable "root" {
 variable "path" {
   type = string
   validation {
-    condition = !can(regex("/$", trimsuffix(var.path, "/")))
+    condition     = !can(regex("/$", trimsuffix(var.path, "/")))
     error_message = "The path must not have multiple trailing slashes."
   }
 }
@@ -25,16 +25,16 @@ variable "group" {
 }
 
 variable "mode" {
-  type = number
+  type    = number
   default = 493 // same as 'parseint("755", 8)', but it is not possible to call functions here
 }
 
 locals {
-  group   = var.group != null ? var.group : var.user
-  root = trimsuffix(var.root, "/")
-  path = trimsuffix(var.path, "/")
+  group             = var.group != null ? var.group : var.user
+  root              = trimsuffix(var.root, "/")
+  path              = trimsuffix(var.path, "/")
   new_path_segments = regexall("/[^/]+", trimprefix(local.path, local.root))
-  directories = [ for index, _ in local.new_path_segments : {
+  directories = [for index, _ in local.new_path_segments : {
     path = format("%s%s", local.root, join("", slice(local.new_path_segments, 0, index + 1)))
     user = {
       name = var.user

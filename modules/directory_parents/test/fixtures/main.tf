@@ -11,7 +11,7 @@ terraform {
       version = "0.11.0"
     }
     tls = {
-      source = "hashicorp/tls"
+      source  = "hashicorp/tls"
       version = "4.0.4"
     }
   }
@@ -28,10 +28,10 @@ provider "libvirt" {
 
 module "directory_parents" {
   source = "./../.."
-  root = "/var/home/core"
-  path = "/var/home/core/a/company/that/makes/folders"
-  user = "core"
-  mode = parseint("755", 8)
+  root   = "/var/home/core"
+  path   = "/var/home/core/a/company/that/makes/folders"
+  user   = "core"
+  mode   = parseint("755", 8)
 }
 
 module "libvirt_test_vm" {

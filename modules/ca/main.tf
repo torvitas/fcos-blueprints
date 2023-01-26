@@ -11,14 +11,14 @@
 terraform {
   required_providers {
     tls = {
-      source = "hashicorp/tls"
+      source  = "hashicorp/tls"
       version = "4.0.4"
     }
   }
 }
 
 variable "ca" {
-  type = string
+  type        = string
   description = "The certificate authority to deploy."
 }
 

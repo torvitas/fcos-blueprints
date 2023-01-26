@@ -11,7 +11,7 @@ terraform {
       version = "0.11.0"
     }
     tls = {
-      source = "hashicorp/tls"
+      source  = "hashicorp/tls"
       version = "4.0.4"
     }
   }
@@ -31,11 +31,11 @@ resource "tls_private_key" "ca" {
 }
 
 resource "tls_self_signed_cert" "ca" {
-  private_key_pem = tls_private_key.ca.private_key_pem
+  private_key_pem   = tls_private_key.ca.private_key_pem
   is_ca_certificate = true
 
   subject {
-    common_name = "acse"
+    common_name  = "acse"
     organization = "A Company that Signs Everything"
   }
 
@@ -50,12 +50,12 @@ resource "tls_self_signed_cert" "ca" {
 
 module "ca" {
   source = "./../.."
-  ca = tls_self_signed_cert.ca.cert_pem
+  ca     = tls_self_signed_cert.ca.cert_pem
 }
 
 module "nginx" {
   source = "./../../../pod"
-  name = "nginx"
+  name   = "nginx"
   manifest = templatefile(format("%s/nginx.manifest.yml", path.module), {
     template_data = jsonencode({
       "default.conf.template" = file(format("%s/nginx.conf.template", path.module))
@@ -75,15 +75,15 @@ resource "tls_private_key" "localhost" {
 resource "tls_cert_request" "localhost" {
   private_key_pem = tls_private_key.localhost.private_key_pem
   subject {
-    common_name = "localhost"
+    common_name  = "localhost"
     organization = "A Company that Signs Everything"
   }
 }
 
 resource "tls_locally_signed_cert" "localhost" {
-  cert_request_pem = tls_cert_request.localhost.cert_request_pem
+  cert_request_pem   = tls_cert_request.localhost.cert_request_pem
   ca_private_key_pem = tls_private_key.ca.private_key_pem
-  ca_cert_pem = tls_self_signed_cert.ca.cert_pem
+  ca_cert_pem        = tls_self_signed_cert.ca.cert_pem
 
   validity_period_hours = 12
 

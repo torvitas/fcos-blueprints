@@ -31,35 +31,35 @@ variable "manifest" {
 // Ensure all the parent directories actually exist and belong to the user
 module "default_target_path_parents" {
   source = "../../../directory_parents"
-  root = local.home_path
-  path = local.default_target_path
-  user = var.user
-  group = var.group
+  root   = local.home_path
+  path   = local.default_target_path
+  user   = var.user
+  group  = var.group
 }
 module "network_online_target_path_parents" {
   source = "../../../directory_parents"
-  root = local.home_path
-  path = local.network_online_target_path
-  user = var.user
-  group = var.group
+  root   = local.home_path
+  path   = local.network_online_target_path
+  user   = var.user
+  group  = var.group
 }
 module "manifest_path_parents" {
   source = "../../../directory_parents"
-  root = local.home_path
-  path = dirname(local.manifest_file)
-  user = var.user
-  group = var.group
+  root   = local.home_path
+  path   = dirname(local.manifest_file)
+  user   = var.user
+  group  = var.group
 }
 module "dropin_path_parents" {
   source = "../../../directory_parents"
-  root = local.home_path
-  path = dirname(local.service_dropin_file)
-  user = var.user
-  group = var.group
+  root   = local.home_path
+  path   = dirname(local.service_dropin_file)
+  user   = var.user
+  group  = var.group
 }
 // Render butane for parent directories to be able to inject it into the current butane configuration
 data "ct_config" "directories_parents" {
-  content      = yamlencode({
+  content = yamlencode({
     variant = "fcos"
     version = "1.4.0"
   })
@@ -74,11 +74,11 @@ data "ct_config" "directories_parents" {
 }
 
 locals {
-  home_path = format("/var/home/%s", var.user)
-  systemd_path        = format("%s/.config/systemd/user", local.home_path)
-  default_target_path = format("%s/default.target.wants", local.systemd_path)
+  home_path                  = format("/var/home/%s", var.user)
+  systemd_path               = format("%s/.config/systemd/user", local.home_path)
+  default_target_path        = format("%s/default.target.wants", local.systemd_path)
   network_online_target_path = format("%s/network-online.target.wants", local.systemd_path)
-  manifest_file       = format("%s/.local/etc/kube/%s.yml", local.home_path, var.name)
+  manifest_file              = format("%s/.local/etc/kube/%s.yml", local.home_path, var.name)
   service_name = format(
     "podman-kube@%s.service",
     # Apply systemd's path replace algorithm.
