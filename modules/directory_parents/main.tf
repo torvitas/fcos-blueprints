@@ -29,7 +29,6 @@ variable "path" {
 variable "user" {
   description = "The user that should be the owner of the path."
   type        = string
-  default     = "root"
 }
 
 variable "group" {

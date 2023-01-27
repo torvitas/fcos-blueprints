@@ -15,7 +15,7 @@ This module returns a butane config that ensures a path of directories exists an
 | <a name="input_mode"></a> [mode](#input\_mode) | The permissions that should be applied to the path. | `number` | `493` | no |
 | <a name="input_path"></a> [path](#input\_path) | Absolute path that should exist. | `string` | n/a | yes |
 | <a name="input_root"></a> [root](#input\_root) | Root path that is assumed to already exist. | `string` | n/a | yes |
-| <a name="input_user"></a> [user](#input\_user) | The user that should be the owner of the path. | `string` | `"root"` | no |
+| <a name="input_user"></a> [user](#input\_user) | The user that should be the owner of the path. | `string` | n/a | yes |
 
 ## Outputs
 
