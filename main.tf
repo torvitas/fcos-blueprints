@@ -25,6 +25,7 @@ module "authorized_keys" {
   count           = var.authorized_keys != null ? 1 : 0
   source          = "./modules/authorized_keys"
   authorized_keys = var.authorized_keys
+  user            = var.user
 }
 
 module "ca" {
