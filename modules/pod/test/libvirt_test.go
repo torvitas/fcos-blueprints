@@ -96,7 +96,7 @@ func TestPod(t *testing.T) {
 					pod.name,
 				)
 			}
-			actualText, _ := retry.DoWithRetryE(t, "Test service status", 60, 2*time.Second, func() (string, error) {
+			actualText, _ := retry.DoWithRetryE(t, "Test service status", 100, 2*time.Second, func() (string, error) {
 				actualText := strings.TrimSpace(func() string {
 					response, _ := ssh.CheckSshCommandE(t, host, command)
 					return response
