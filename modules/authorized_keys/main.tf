@@ -13,6 +13,12 @@ variable "authorized_keys" {
   type        = set(string)
 }
 
+variable "user" {
+  description = "The user to which to add the public key to the authorized keys to."
+  type        = string
+  default     = "core"
+}
+
 locals {
   butane = {
     variant = "fcos"
