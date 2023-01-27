@@ -18,6 +18,7 @@ locals {
     variant = "fcos"
     version = "1.4.0"
   }
+  group = coalesce(var.group, var.user)
 }
 
 module "authorized_keys" {
@@ -26,13 +27,19 @@ module "authorized_keys" {
   authorized_keys = var.authorized_keys
 }
 
-module "pod" {
-  for_each = { for index, pod in var.pods : index => pod }
-  source   = "./modules/pod"
-  name     = each.value.name
-  manifest = each.value.manifest
-  user     = each.value.user
-  group    = each.value.group
+module "ca" {
+  count  = var.ca != null ? 1 : 0
+  source = "./modules/ca"
+  ca     = var.ca
+}
+
+module "directory_parents" {
+  for_each = { for index, directory in var.directory_parents : index => directory }
+  source   = "./modules/directory_parents"
+  root     = each.value.root
+  path     = each.value.path
+  user     = coalesce(each.value.user, var.user)
+  group    = coalesce(each.value.group, local.group)
 }
 
 module "node_exporter" {
@@ -45,6 +52,15 @@ module "open_vm_tools" {
   source = "./modules/open_vm_tools"
 }
 
+module "pod" {
+  for_each = { for index, pod in var.pods : index => pod }
+  source   = "./modules/pod"
+  name     = each.value.name
+  manifest = each.value.manifest
+  user     = coalesce(each.value.user, var.user)
+  group    = coalesce(each.value.group, local.group)
+}
+
 data "ct_config" "this" {
   content      = yamlencode(local.butane)
   strict       = true
@@ -53,8 +69,10 @@ data "ct_config" "this" {
   snippets = concat(
     var.butane != null ? [var.butane] : [],
     [for authorized_keys in module.authorized_keys : authorized_keys.butane],
-    [for pod in module.pod : pod.butane],
+    [for ca in module.ca : ca.butane],
+    [for directory in module.directory_parents : directory.butane],
     [for node_exporter in module.node_exporter : node_exporter.butane],
-    [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane]
+    [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane],
+    [for pod in module.pod : pod.butane]
   )
 }
