@@ -71,3 +71,7 @@ output "private_key_openssh" {
 output "network_interfaces" {
   value = resource.libvirt_domain.this.network_interface
 }
+
+output "ignition" {
+  value = data.ct_config.this.rendered
+}

@@ -10,7 +10,7 @@ GOTEST = gotestsum --format testname
 export TF_VAR_libvirt_uri = qemu:///system
 export TF_VAR_coreos_image = $(COREOS_IMAGE_FILE)
 
-modules = $(wildcard modules/*)
+modules = $(wildcard modules/*) .
 
 .PHONY: test
 test: bootstrap

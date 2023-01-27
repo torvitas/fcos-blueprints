@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-templates
+data: ${template_data}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-tls
+data: ${tls_data}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  LISTEN: 0.0.0.0:4443
+  ROOT: /usr/share/nginx/html
+  CERTIFICATE_PATH: /usr/local/share/nginx/tls/crt.pem
+  KEY_PATH: /usr/local/share/nginx/tls/key.pem
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.TTY/nginx: "false"
+    io.podman.annotations.autoremove/nginx: "TRUE"
+    io.podman.annotations.init/nginx: "FALSE"
+    io.podman.annotations.privileged/nginx: "FALSE"
+    io.podman.annotations.publish-all/nginx: "FALSE"
+  labels:
+    app: nginx-pod
+  name: nginx-pod
+spec:
+  containers:
+    - args:
+        - nginx
+        - -g
+        - daemon off;
+      envFrom:
+        - configMapRef:
+            name: nginx-config
+      image: docker.io/library/nginx:latest
+      name: nginx
+      ports:
+        - containerPort: 4443
+          hostPort: 4443
+      volumeMounts:
+        - name: nginx-tls
+          mountPath: /usr/local/share/nginx/tls
+        - name: nginx-config-templates
+          mountPath: /etc/nginx/templates
+  volumes:
+    - name: nginx-config-templates
+      configMap:
+        name: nginx-config-templates
+    - name: nginx-tls
+      configMap:
+        name: nginx-tls

@@ -13,5 +13,6 @@ variable "network_name" {
 }
 
 variable "butane_snippets" {
-  type = list(string)
+  type    = list(string)
+  default = null
 }

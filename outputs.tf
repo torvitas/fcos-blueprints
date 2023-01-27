@@ -1,5 +1,5 @@
 output "config" {
-  description = "War CT config object"
+  description = "CT config object"
   value       = data.ct_config.this
 }
 

@@ -32,7 +32,7 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_config"></a> [config](#output\_config) | War CT config object |
+| <a name="output_config"></a> [config](#output\_config) | CT config object |
 | <a name="output_rendered"></a> [rendered](#output\_rendered) | Rendered ignition config |
 <!-- END_TF_DOCS -->
 <!-- editorconfig-checker-enable -->
