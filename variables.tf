@@ -55,6 +55,7 @@ variable "directory_parents" {
     group = optional(string)
     mode  = optional(number)
   }))
+  default = []
 }
 
 variable "pods" {
