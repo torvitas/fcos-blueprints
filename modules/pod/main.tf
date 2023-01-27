@@ -44,7 +44,7 @@ variable "manifest" {
 
 locals {
   is_root = var.user == "root"
-  group   = var.group != null ? var.group : var.user
+  group   = coalesce(var.group, var.user)
 }
 
 module "root" {

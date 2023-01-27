@@ -44,7 +44,7 @@ variable "mode" {
 }
 
 locals {
-  group             = var.group != null ? var.group : var.user
+  group             = coalesce(var.group, var.user)
   root              = trimsuffix(var.root, "/")
   path              = trimsuffix(var.path, "/")
   new_path_segments = regexall("/[^/]+", trimprefix(local.path, local.root))
