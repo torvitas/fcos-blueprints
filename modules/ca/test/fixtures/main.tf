@@ -50,7 +50,7 @@ resource "tls_self_signed_cert" "ca" {
 
 module "ca" {
   source = "./../.."
-  ca     = tls_self_signed_cert.ca.cert_pem
+  ca     = [tls_self_signed_cert.ca.cert_pem]
 }
 
 module "nginx" {

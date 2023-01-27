@@ -11,7 +11,7 @@ This module returns a butane config that deploys a CA.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ca"></a> [ca](#input\_ca) | The certificate authority in PEM format. | `string` | n/a | yes |
+| <a name="input_ca"></a> [ca](#input\_ca) | The certificate authorities in PEM format. | `list(string)` | n/a | yes |
 
 ## Outputs
 

@@ -29,8 +29,8 @@ variable "authorized_keys" {
 }
 
 variable "ca" {
-  description = "The certificate authority in PEM format."
-  type        = string
+  description = "The certificate authorities in PEM format."
+  type        = list(string)
   default     = null
 }
 

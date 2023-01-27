@@ -18,42 +18,38 @@ terraform {
 }
 
 variable "ca" {
-  description = "The certificate authority in PEM format."
-  type        = string
+  description = "The certificate authorities in PEM format."
+  type        = list(string)
 }
 
 data "tls_certificate" "this" {
-  content = var.ca
+  for_each = { for index, cert in var.ca : index => cert }
+  content  = each.value
 }
 
 locals {
-  name = regex("^CN=(?P<name>[^,]+),.*", data.tls_certificate.this.certificates[0].subject).name
   butane = {
     variant = "fcos"
     version = "1.4.0"
     ignition = {
       security = {
         tls = {
-          certificate_authorities = [
-            {
-              inline = var.ca
-            }
-          ]
+          certificate_authorities = [for cert in var.ca : {
+            inline = cert
+          }]
         }
       }
     }
     storage = {
-      files = [
-        {
-          path = format(
-            "/etc/pki/ca-trust/source/anchors/%s.pem",
-            local.name
-          )
-          contents = {
-            inline = var.ca
-          }
+      files = [for index, cert in var.ca : {
+        path = format(
+          "/etc/pki/ca-trust/source/anchors/%s.pem",
+          regex("^CN=(?P<name>[^,]+),.*", data.tls_certificate.this[index].certificates[0].subject).name
+        )
+        contents = {
+          inline = cert
         }
-      ]
+      }]
     }
   }
 }

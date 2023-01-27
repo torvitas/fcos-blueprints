@@ -20,7 +20,7 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 |------|-------------|------|---------|:--------:|
 | <a name="input_authorized_keys"></a> [authorized\_keys](#input\_authorized\_keys) | List of authorized SSH public keys for the default user. | `list(string)` | `null` | no |
 | <a name="input_butane"></a> [butane](#input\_butane) | Custom butane configuration | `string` | `null` | no |
-| <a name="input_ca"></a> [ca](#input\_ca) | The certificate authority in PEM format. | `string` | `null` | no |
+| <a name="input_ca"></a> [ca](#input\_ca) | The certificate authorities in PEM format. | `list(string)` | `null` | no |
 | <a name="input_directory_parents"></a> [directory\_parents](#input\_directory\_parents) | Ensures a path of directories exists and has the correct permissions. | <pre>list(object({<br>    root  = string<br>    path  = string<br>    user  = optional(string)<br>    group = optional(string)<br>    mode  = optional(number)<br>  }))</pre> | n/a | yes |
 | <a name="input_group"></a> [group](#input\_group) | Name of the group to be used by default for user dependend modules<br>    if not specifically configured otherwise in the respective module.<br>    The group will default to the user name. | `string` | `null` | no |
 | <a name="input_node_exporter_enabled"></a> [node\_exporter\_enabled](#input\_node\_exporter\_enabled) | Enable node-exporter container. | `bool` | `true` | no |
