@@ -1,1 +1,0 @@
-# deploy to ec2
