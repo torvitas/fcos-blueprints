@@ -10,6 +10,10 @@ terraform {
       source  = "poseidon/ct"
       version = "0.11.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.4"
+    }
   }
 }
 
