@@ -3,6 +3,11 @@ include:
     ref: "9.4.0"
     file: "terraform/terraform.gitlab-ci.yml"
 
+superduperlinter:
+  stage: test
+  variables:
+    VALIDATE_KUBERNETES_KUBEVAL: "false"
+
 terraform:validate:
   extends: .terraform:validate
   stage: test
