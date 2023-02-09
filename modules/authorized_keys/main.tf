@@ -26,7 +26,7 @@ locals {
     passwd = {
       users = [
         {
-          name                = "core"
+          name                = var.user
           ssh_authorized_keys = var.authorized_keys
         }
       ]
