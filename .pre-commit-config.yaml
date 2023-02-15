@@ -13,6 +13,8 @@ repos:
       - id: terraform-docs-system
         args: [./modules/pod]
       - id: terraform-docs-system
+        args: [./modules/unit]
+      - id: terraform-docs-system
         args: [./modules/ca]
       - id: terraform-docs-system
         args: [./modules/directory_parents]
