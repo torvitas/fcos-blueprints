@@ -62,6 +62,15 @@ module "pod" {
   group    = coalesce(each.value.group, local.group)
 }
 
+module "unit" {
+  for_each = { for index, unit in var.units : index => unit }
+  source   = "./modules/unit"
+  name     = each.value.name
+  unit     = each.value.unit
+  user     = coalesce(each.value.user, var.user)
+  group    = coalesce(each.value.group, local.group)
+}
+
 data "ct_config" "this" {
   content      = yamlencode(local.butane)
   strict       = true
@@ -74,6 +83,7 @@ data "ct_config" "this" {
     [for directory in module.directory_parents : directory.butane],
     [for node_exporter in module.node_exporter : node_exporter.butane],
     [for open_vm_tools in module.open_vm_tools : open_vm_tools.butane],
-    [for pod in module.pod : pod.butane]
+    [for pod in module.pod : pod.butane],
+    [for unit in module.unit : unit.butane]
   )
 }

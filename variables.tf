@@ -68,3 +68,13 @@ variable "pods" {
   }))
   default = []
 }
+
+variable "units" {
+  description = "List of configuration objects for user units."
+  type = list(object({
+    user  = optional(string)
+    group = optional(string)
+    name  = string
+    unit  = string
+  }))
+}

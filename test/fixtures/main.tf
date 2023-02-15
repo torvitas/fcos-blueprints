@@ -160,6 +160,12 @@ module "blueprints" {
       })
     }
   ]
+  units = [
+    {
+      name = "infinity"
+      unit = file(format("%s/unit-0.service", path.module))
+    }
+  ]
 }
 
 module "libvirt_test_vm" {

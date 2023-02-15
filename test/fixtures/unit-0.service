@@ -1,0 +1,6 @@
+[Unit]
+Description=Sleep infinity service
+[Service]
+ExecStart=sleep infinity
+[Install]
+WantedBy=default.target

@@ -111,4 +111,13 @@ func TestPod(t *testing.T) {
 			"The path to the nginx pod manifest should be defined in the output.",
 		)
 	})
+
+	t.Run("test_unit", func(t *testing.T) {
+		assert.Contains(
+			t,
+			output,
+			"\"path\": \"/var/home/core/.config/systemd/user/default.target.wants/infinity\"",
+			"The path to the infinity unit should be defined in the output.",
+		)
+	})
 }
