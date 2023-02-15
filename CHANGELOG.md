@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.0.0...v1.1.0) (2023-02-15)
+
+
+### Features
+
+* Add user unit module ([9b8ac7b](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/9b8ac7b2934bc52497eb8bafaa29eacc078ffdc7))
+
 ## 1.0.0 (2023-02-09)
 
 
