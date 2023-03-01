@@ -26,7 +26,7 @@ Provide a baseline configuration for Ignition/Butane based workloads.
 | <a name="input_node_exporter_enabled"></a> [node\_exporter\_enabled](#input\_node\_exporter\_enabled) | Enable node-exporter container. | `bool` | `true` | no |
 | <a name="input_open_vm_tools_enabled"></a> [open\_vm\_tools\_enabled](#input\_open\_vm\_tools\_enabled) | Enable VMware open-vm-tools to integrate with vSphere. | `bool` | `false` | no |
 | <a name="input_pods"></a> [pods](#input\_pods) | List of configuration objects for pod module. | <pre>list(object({<br>    name     = string<br>    manifest = string<br>    user     = optional(string)<br>    group    = optional(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_units"></a> [units](#input\_units) | List of configuration objects for user units. | <pre>list(object({<br>    user  = optional(string)<br>    group = optional(string)<br>    name  = string<br>    unit  = string<br>  }))</pre> | n/a | yes |
+| <a name="input_units"></a> [units](#input\_units) | List of configuration objects for user units. | <pre>list(object({<br>    user  = optional(string)<br>    group = optional(string)<br>    name  = string<br>    unit  = string<br>  }))</pre> | `[]` | no |
 | <a name="input_user"></a> [user](#input\_user) | Name of the user to be used by default for user dependend modules<br>    if not specifically configured otherwise in the respective module. | `string` | n/a | yes |
 
 ## Outputs

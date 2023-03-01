@@ -77,4 +77,5 @@ variable "units" {
     name  = string
     unit  = string
   }))
+  default = []
 }
