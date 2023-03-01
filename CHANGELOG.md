@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.0...v1.1.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* Units should not be mandatory ([dcbd2d4](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/dcbd2d476d7ce94d7f4c335e43524aec147e8490))
+
 ## [1.1.0](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.0.0...v1.1.0) (2023-02-15)
 
 
