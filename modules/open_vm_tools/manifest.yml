@@ -47,6 +47,8 @@ spec:
           name: etc-resolv.conf-host-12
         - mountPath: /etc/adjtime
           name: etc-adjtime-host-13
+        - mountPath: /etc/hostname
+          name: etc-hostname-14
   enableServiceLinks: false
   hostNetwork: true
   volumes:
@@ -106,3 +108,7 @@ spec:
         path: /etc/adjtime
         type: File
       name: etc-adjtime-host-13
+    - hostPath:
+        path: /etc/hostname
+        type: File
+      name: etc-hostname-14
