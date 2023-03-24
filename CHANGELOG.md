@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.1...v1.1.2) (2023-03-24)
+
+
+### Bug Fixes
+
+* Use host network,pid and ipc ([69a76a4](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/69a76a4f9721656be30435998e75d8d7d8e757e7))
+* vsphere vm guest hostname ([ca5fce9](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/ca5fce9b6cdad48f3f0fcb7688167a8f5c330feb))
+
 ## [1.1.1](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.0...v1.1.1) (2023-03-01)
 
 
