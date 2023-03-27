@@ -1,6 +1,6 @@
 include:
   - project: "itops/gitlab-ci-templates"
-    ref: "10.4.0"
+    ref: "10.5.0"
     file: "terraform/terraform.gitlab-ci.yml"
 
 superduperlinter:
