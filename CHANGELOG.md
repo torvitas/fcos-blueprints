@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.2...v1.1.3) (2023-04-24)
+
+
+### Bug Fixes
+
+* Use twiddle-wakka operator for provider dependencies to pin only by major version ([e7ef922](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/e7ef92229303d4f8dd4dbdf85cd2dbaac35c7c32))
+
 ## [1.1.2](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.1...v1.1.2) (2023-03-24)
 
 
