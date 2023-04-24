@@ -1,12 +1,13 @@
 include:
   - project: "itops/gitlab-ci-templates"
-    ref: "10.5.0"
+    ref: "10.8.0"
     file: "terraform/terraform.gitlab-ci.yml"
 
 superduperlinter:
   stage: test
   variables:
-    VALIDATE_KUBERNETES_KUBEVAL: "false"
+    # templated manifests
+    VALIDATE_KUBERNETES_KUBECONFORM: "false"
 
 terraform:validate:
   extends: .terraform:validate
