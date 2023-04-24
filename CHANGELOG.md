@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.3...v1.1.4) (2023-04-24)
+
+
+### Bug Fixes
+
+* Remove .terraform.lock.hcl ([e9ab4f4](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/e9ab4f45340f3a93641a45731750357430c2313d))
+
 ## [1.1.3](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.2...v1.1.3) (2023-04-24)
 
 
