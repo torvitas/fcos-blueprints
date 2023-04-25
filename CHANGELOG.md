@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.5...v1.1.6) (2023-04-25)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/stretchr/testify to v1.8.2 ([74f04f2](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/74f04f2394ac344ecf9d97ca28245c1a4079698f))
+
 ## [1.1.5](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.4...v1.1.5) (2023-04-24)
 
 
