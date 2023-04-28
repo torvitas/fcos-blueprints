@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.6...v2.0.0) (2023-04-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* Switch from poseidon/ct provider to e-breuninger/ignition
+
+### Features
+
+* Switch from poseidon/ct provider to e-breuninger/ignition ([0cba564](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/commit/0cba5642daec4f38a06ac81e9bca7f66eab1577d))
+
 ## [1.1.6](https://gitlab.breuni.de/itops/terraform-modules/terraform-module-ignition-blueprints/compare/v1.1.5...v1.1.6) (2023-04-25)
 
 
