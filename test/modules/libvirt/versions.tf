@@ -6,9 +6,9 @@ terraform {
       source  = "dmacvicar/libvirt"
       version = "0.7.1"
     }
-    ct = {
-      source  = "poseidon/ct"
-      version = "0.11.0"
+    ignition = {
+      source  = "e-breuninger/ignition"
+      version = "1.0.0"
     }
     local = {
       source  = "hashicorp/local"

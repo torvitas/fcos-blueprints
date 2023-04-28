@@ -1,9 +1,9 @@
 output "config" {
-  description = "CT config object"
-  value       = data.ct_config.this
+  description = "Ignition config object"
+  value       = data.ignition_config.this
 }
 
 output "rendered" {
-  description = "Rendered ignition config"
-  value       = data.ct_config.this.rendered
+  description = "Rendered Ignition config"
+  value       = data.ignition_config.this.rendered
 }

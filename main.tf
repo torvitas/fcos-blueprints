@@ -71,7 +71,7 @@ module "unit" {
   group    = coalesce(each.value.group, local.group)
 }
 
-data "ct_config" "this" {
+data "ignition_config" "this" {
   content      = yamlencode(local.butane)
   strict       = true
   pretty_print = true

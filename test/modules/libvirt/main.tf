@@ -7,7 +7,7 @@ module "authorized_keys" {
   authorized_keys = [tls_private_key.this.public_key_openssh]
 }
 
-data "ct_config" "this" {
+data "ignition_config" "this" {
   content      = module.authorized_keys.butane
   strict       = true
   pretty_print = true
@@ -17,7 +17,7 @@ data "ct_config" "this" {
 
 resource "libvirt_ignition" "this" {
   name    = format("%s-ignition", var.name)
-  content = data.ct_config.this.rendered
+  content = data.ignition_config.this.rendered
 }
 
 resource "libvirt_volume" "root" {
@@ -60,7 +60,7 @@ resource "local_file" "private_key_openssh" {
 }
 
 resource "local_file" "ignition" {
-  content  = data.ct_config.this.rendered
+  content  = data.ignition_config.this.rendered
   filename = format("%s/ignition.cfg", path.module)
 }
 
@@ -73,5 +73,5 @@ output "network_interfaces" {
 }
 
 output "ignition" {
-  value = data.ct_config.this.rendered
+  value = data.ignition_config.this.rendered
 }

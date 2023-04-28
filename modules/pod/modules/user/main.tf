@@ -1,9 +1,9 @@
 terraform {
   required_version = "~> 1.0"
   required_providers {
-    ct = {
-      source  = "poseidon/ct"
-      version = "~> 0.11"
+    ignition = {
+      source  = "e-breuninger/ignition"
+      version = "~> 1.0"
     }
   }
 }
@@ -58,7 +58,7 @@ module "dropin_path_parents" {
   group  = var.group
 }
 // Render butane for parent directories to be able to inject it into the current butane configuration
-data "ct_config" "directories_parents" {
+data "ignition_config" "directories_parents" {
   content = yamlencode({
     variant = "fcos"
     version = "1.4.0"
@@ -94,7 +94,7 @@ locals {
       config = {
         merge = [
           {
-            inline = data.ct_config.directories_parents.rendered
+            inline = data.ignition_config.directories_parents.rendered
           }
         ]
       }
